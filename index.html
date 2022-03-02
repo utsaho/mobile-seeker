@@ -6,10 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile seeker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
 
+<script src="js/bootstrap.bundle.min.js"></script>
+
 <body>
-    <h1>Hello world</h1>
+    <h1 class="text-center fs-1 text-success mt-5">Mobile seeker</h1>
+    <div class="input-group container ps-5 pe-5 w-50 mt-3">
+        <input type="text" class="form-control" placeholder="Search your mobile here" aria-label="Recipient's username"
+            aria-describedby="button-addon2">
+        <button class="btn btn-outline-danger fw-bold bg-dark text-white" type="button"
+            id="search-button">search</button>
+    </div>
 </body>
 
 </html>
