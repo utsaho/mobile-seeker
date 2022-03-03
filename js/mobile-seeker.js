@@ -15,20 +15,33 @@ document.getElementById('search-button').addEventListener('click', function () {
     document.getElementById('searchText').value = '';
     loadData(searchText);
 });
-const loadData = searchText => {
+const loadData = (searchText, again = false) => {
     try {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-        fetch(url).then(res => res.json()).then(data => fetchedData(data.data));
+        fetch(url).then(res => res.json()).then(data => again ? fetchedData(data.data, true) : fetchedData(data.data));
     }
     catch (e) {
         console.log('data not found')
     }
 }
-const fetchedData = phones => {
+const fetchedData = (phones, isMoreThen20 = false) => {
+    let restPhones;
     if (phones.length > 0) {
-
+        let moreThen20 = false;
+        if (phones.length > 20 && !isMoreThen20) {
+            moreThen20 = true;
+            // console.log('before slice main: ', phones.length);
+            restPhones = Array.prototype.slice.call(phones, phones.length - 20);
+            // console.log('sub slice: ', restPhones.length);
+            // console.log('old slice: ', phones.length);
+        }
+        else {
+            restPhones = phones;
+        }
+        // console.log(phones.length);
+        // phone.length = 15;
         const parentElement = document.getElementById('results');
-        phones.forEach(phone => {
+        restPhones.forEach(phone => {
             // console.log(phone);
             const div = document.createElement('div');
             div.classList.add('col');
@@ -49,6 +62,15 @@ const fetchedData = phones => {
         </div>`;
             parentElement.appendChild(div);
         });
+        emptyElement('showMoreButton');
+        if (moreThen20) {
+            const div = document.createElement('div');
+            div.classList.add('row', 'justify-content-center', 'd-flex');
+            div.innerHTML = `
+                <button class="btn btn-primary" onclick="fetchedDataAgain()">show more</button>
+            `;
+            document.getElementById('showMoreButton').appendChild(div);
+        }
     }
     else {
         const parentElement = document.getElementById('results');
@@ -58,10 +80,20 @@ const fetchedData = phones => {
             <div class="align-items-center" style="margin-top:10%">
             <i class="far fa-sad-tear"></i>
                 <h1 class="fw-bold text-center text-align-center text-muted">data not found </h2>
-            </div>
+                </div>
             `;
         parentElement.appendChild(div);
     }
+}
+
+const fetchedDataAgain = () => {
+    loadData(searchText, true);
+    // emptyElement('phone-details');
+    // emptyElement('results');
+    // fetchedData(restPhones, true);
+    // if (string == 'yes') {
+    //     console.log('hwlllo');
+    // }
 }
 
 const loadPhoneDetail = detail => {
