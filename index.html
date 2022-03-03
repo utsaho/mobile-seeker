@@ -10,9 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--! Font awsome -->
+    <script src="https://kit.fontawesome.com/103b8b8699.js" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+        }
+
+        #phone-details {
+            display: none;
         }
     </style>
 </head>
@@ -20,13 +27,63 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 
 <body>
-    <h1 class="text-center fs-1 text-success mt-5">Mobile seeker</h1>
-    <div class="input-group container ps-5 pe-5 w-50 mt-3">
-        <input type="text" class="form-control" placeholder="Search your mobile here" aria-label="Recipient's username"
-            aria-describedby="button-addon2">
-        <button class="btn btn-outline-danger fw-bold bg-dark text-white" type="button"
-            id="search-button">search</button>
+    <div class="d-flex flex-md-row flex-sm-col fixed-top bg-white pb-3">
+        <div>
+            <h1 class="fs-1 text-success mt-2 ms-4 text-md-start text-sm-center">Mobile seeker</h1>
+        </div>
+        <div class="input-group ms-5 pe-5 w-50 mt-3 bg-white">
+            <input type="text" class="form-control" placeholder="Search your mobile here"
+                aria-label="Recipient's username" aria-describedby="button-addon2" id="searchText">
+            <button class="btn btn-outline-danger fw-bold" type="button" id="search-button"><i
+                    class="fas fa-search bg-opacity-25"></i></button>
+        </div>
+
+    </div>
+    <div class="card mb-3 mt-5 ms-5 pt-5 justify-content-center w-auto border-0" id="phone-details"></div>
+
+
+    <div class="row row-cols-1 row-cols-md-3 g-5 mt-5 ms-2 h-100 d-flex justify-content-center" id="results">
     </div>
 </body>
+
+<script src="js/mobile-seeker.js"></script>
+<!-- <script>
+    let searchText;
+    document.getElementById('search-button').addEventListener('click', function () {
+        const inputText = document.getElementById('searchText').value.toLocaleLowerCase();
+        searchText = inputText;
+        document.getElementById('searchText').value = '';
+        loadData(searchText);
+    });
+    const loadData = (searchText) => {
+        const url = `https://openapi.programming-hero.com/api/phone/${searchText}`
+        fetch(url).then(res => res.json()).then(data => fetchedData(data));
+    }
+    const fetchedData = data => {
+        // console.log(data);
+        const parentElement = document.getElementById('results');
+        if (data.length == 1) {
+            console.log(data.data.name)
+        }
+        data.forEach(phone => {
+            console.log(phone.data.name);
+            // const div = document.createElement('div');
+            // div.classList.add('col');
+            // div.innerHTML = `
+            // <div class="card">
+            //         <img src="" class="card-img-top" alt="...">
+            //             <div class="card-body">
+            //                 <h5 class="card-title">${phone.data.name}</h5>
+            //                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+            //                     additional content. This content is a little bit longer.</p>
+            //             </div>
+            //     </div>
+            // `;
+            // parentElement.appendChild(div);
+        });
+        // apple_iphone_13_pro_max-11089
+        // console.log(data.data.name);
+    }
+</script> -->
 
 </html>
