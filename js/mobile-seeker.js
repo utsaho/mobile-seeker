@@ -1,29 +1,31 @@
 const displaySetting = (elementId, displayStyle) => {
+    // change the visibility of the 'elementId' content
     document.getElementById(elementId).style.display = displayStyle;
 }
 
 const emptyElement = elementId => {
+    // Empty the 'elementId' content
     document.getElementById(elementId).textContent = '';
 }
 let searchText;
 document.getElementById('search-button').addEventListener('click', function () {
+    // This function will work when search button clicked
     displaySetting('phone-details', 'none');
     displaySetting('results', 'none');
     displaySetting('spinner', 'block');
     emptyElement('results'); emptyElement('phone-details');
     const inputText = document.getElementById('searchText').value.toLocaleLowerCase();
     searchText = inputText;
-    document.getElementById('searchText').value = '';
+    document.getElementById('searchText').value = '';   // After getting searchText, makeing the searchbox empty
     loadData(searchText);
 });
 const loadData = async (searchText, again = false) => {
+    // This is the async funciton. Fetching the phones json
     try {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
         const res = await fetch(url);
         const data = await res.json();
         again ? fetchedData(data.data, true) : fetchedData(data.data)
-
-        // fetch(url).then(res => res.json()).then(data => again ? fetchedData(data.data, true) : fetchedData(data.data));
     }
     catch (e) {
         console.log('data not found')
@@ -95,8 +97,7 @@ const loadPhoneDetail = async detail => {
     const url = `https://openapi.programming-hero.com/api/phone/${detail}`;
     const res = await fetch(url);
     const data = await res.json();
-    showDetails(data)
-    // fetch(url).then(res => res.json()).then(data => showDetails(data));
+    showDetails(data);
 }
 
 const showDetails = details => {
@@ -144,7 +145,6 @@ const showDetails = details => {
 }
 
 const getOthers = details => {
-    // console.log(details.others);
     let string = ``;
     string += `<ul class="list-group">`;
     for (const elementPart in details.others) {
@@ -167,15 +167,11 @@ const getSensors = subMenu => {
 const getMenuf = (menu) => {
     let string = ``;
     const subMenu = menu.mainFeatures;
-    // console.log(subMenu);
-    // console.log(details.data.others);
     for (const element in subMenu) {
         //! for sensor array
-        //  console.log(element.sensors? sensors : 'not Hello');
         if (element != 'sensors') {
             string += `<li> <span class = "fw-bold"> ${element} :</span> ${subMenu[element]} </li>`;
         }
     }
-    // console.log(menu.sensors);
     return string;
 }

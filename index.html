@@ -32,58 +32,16 @@
     </div>
     <div class="card mb-3 mt-5 ms-5 pt-5 justify-content-center w-auto border-0" id="phone-details"></div>
 
-
-
     <div class="text-center fixed-center position-fixed fixed-bottom end-50 text-dark" id="spinner">
         <div class="spinner-grow" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-5 mt-5 ms-2 h-100 d-flex justify-content-center" id="results">
-
     </div>
     <div class="d-flex justify-content-center text-center mt-5 mb-5" id="showMoreButton">
     </div>
 </body>
-
 <script src="js/mobile-seeker.js"></script>
-<!-- <script>
-    let searchText;
-    document.getElementById('search-button').addEventListener('click', function () {
-        const inputText = document.getElementById('searchText').value.toLocaleLowerCase();
-        searchText = inputText;
-        document.getElementById('searchText').value = '';
-        loadData(searchText);
-    });
-    const loadData = (searchText) => {
-        const url = `https://openapi.programming-hero.com/api/phone/${searchText}`
-        fetch(url).then(res => res.json()).then(data => fetchedData(data));
-    }
-    const fetchedData = data => {
-        // console.log(data);
-        const parentElement = document.getElementById('results');
-        if (data.length == 1) {
-            console.log(data.data.name)
-        }
-        data.forEach(phone => {
-            console.log(phone.data.name);
-            // const div = document.createElement('div');
-            // div.classList.add('col');
-            // div.innerHTML = `
-            // <div class="card">
-            //         <img src="" class="card-img-top" alt="...">
-            //             <div class="card-body">
-            //                 <h5 class="card-title">${phone.data.name}</h5>
-            //                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-            //                     additional content. This content is a little bit longer.</p>
-            //             </div>
-            //     </div>
-            // `;
-            // parentElement.appendChild(div);
-        });
-        // apple_iphone_13_pro_max-11089
-        // console.log(data.data.name);
-    }
-</script> -->
 
 </html>
