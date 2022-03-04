@@ -13,36 +13,34 @@
     <link rel="stylesheet" href="css/style.css">
     <!--! Font awsome -->
     <script src="https://kit.fontawesome.com/103b8b8699.js" crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-
-        #phone-details {
-            display: none;
-        }
-    </style>
 </head>
 
 <script src="js/bootstrap.bundle.min.js"></script>
 
 <body>
-    <div class="d-flex flex-md-row flex-sm-col fixed-top bg-white pb-3">
+    <div class="d-flex flex-md-row flex-sm-col fixed-top pb-3 bg-dark">
         <div>
-            <h1 class="fs-1 text-success mt-2 ms-4 text-md-start text-sm-center">Mobile seeker</h1>
+            <h1 class="fs-1 nav-heading mt-2 ms-4 text-md-start text-sm-center">Mobile seeker</h1>
         </div>
-        <div class="input-group ms-5 pe-5 w-50 mt-3 bg-white">
+        <div class="input-group ms-5 pe-5 w-50 mt-3 bg-dark">
             <input type="text" class="form-control" placeholder="Search your mobile here"
                 aria-label="Recipient's username" aria-describedby="button-addon2" id="searchText">
             <button class="btn btn-outline-danger fw-bold" type="button" id="search-button"><i
-                    class="fas fa-search bg-opacity-25"></i></button>
+                    class="fas fa-search text-white"></i></button>
         </div>
 
     </div>
     <div class="card mb-3 mt-5 ms-5 pt-5 justify-content-center w-auto border-0" id="phone-details"></div>
 
 
+
+    <div class="text-center fixed-center position-fixed fixed-bottom end-50 text-dark" id="spinner">
+        <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <div class="row row-cols-1 row-cols-md-3 g-5 mt-5 ms-2 h-100 d-flex justify-content-center" id="results">
+
     </div>
     <div class="d-flex justify-content-center text-center mt-5 mb-5" id="showMoreButton">
     </div>

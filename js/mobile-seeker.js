@@ -9,16 +9,21 @@ let searchText;
 document.getElementById('search-button').addEventListener('click', function () {
     displaySetting('phone-details', 'none');
     displaySetting('results', 'none');
+    displaySetting('spinner', 'block');
     emptyElement('results'); emptyElement('phone-details');
     const inputText = document.getElementById('searchText').value.toLocaleLowerCase();
     searchText = inputText;
     document.getElementById('searchText').value = '';
     loadData(searchText);
 });
-const loadData = (searchText, again = false) => {
+const loadData = async (searchText, again = false) => {
     try {
-        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-        fetch(url).then(res => res.json()).then(data => again ? fetchedData(data.data, true) : fetchedData(data.data));
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        again ? fetchedData(data.data, true) : fetchedData(data.data)
+
+        // fetch(url).then(res => res.json()).then(data => again ? fetchedData(data.data, true) : fetchedData(data.data));
     }
     catch (e) {
         console.log('data not found')
@@ -30,19 +35,13 @@ const fetchedData = (phones, isMoreThen20 = false) => {
         let moreThen20 = false;
         if (phones.length > 20 && !isMoreThen20) {
             moreThen20 = true;
-            // console.log('before slice main: ', phones.length);
             restPhones = Array.prototype.slice.call(phones, phones.length - 20);
-            // console.log('sub slice: ', restPhones.length);
-            // console.log('old slice: ', phones.length);
         }
         else {
             restPhones = phones;
         }
-        // console.log(phones.length);
-        // phone.length = 15;
         const parentElement = document.getElementById('results');
         restPhones.forEach(phone => {
-            // console.log(phone);
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
@@ -53,10 +52,10 @@ const fetchedData = (phones, isMoreThen20 = false) => {
             <div class="card-body d-flex justify-content-center">
                 <div>
                     <h5 class="card-title">${phone.phone_name}</h5>
-                    <p class="card-text">Brand: ${phone.brand}</p>
+                    <p class="card-text"><span class="fw-bold">Brand: </span>${phone.brand}</p>
                 </div>
                 <div class="ms-3">
-                    <a class="btn btn-primary" href="#phone-details" role="button" onclick="loadPhoneDetail('${phone.slug}')">Learn more</a>
+                    <a class="btn" href="#" id="learnMoreButton" role="button" onclick="loadPhoneDetail('${phone.slug}')">Learn more</a>
                 </div>
             </div>
         </div>`;
@@ -84,27 +83,24 @@ const fetchedData = (phones, isMoreThen20 = false) => {
             `;
         parentElement.appendChild(div);
     }
+    displaySetting('spinner', 'none');
 }
 
 const fetchedDataAgain = () => {
+    displaySetting('spinner', 'block');
     loadData(searchText, true);
-    // emptyElement('phone-details');
-    // emptyElement('results');
-    // fetchedData(restPhones, true);
-    // if (string == 'yes') {
-    //     console.log('hwlllo');
-    // }
 }
 
-const loadPhoneDetail = detail => {
+const loadPhoneDetail = async detail => {
     const url = `https://openapi.programming-hero.com/api/phone/${detail}`;
-    // console.log(url);
-    fetch(url).then(res => res.json()).then(data => showDetails(data));
+    const res = await fetch(url);
+    const data = await res.json();
+    showDetails(data)
+    // fetch(url).then(res => res.json()).then(data => showDetails(data));
 }
 
 const showDetails = details => {
-    // console.log(details);
-    // console.log(details.data.name);
+    displaySetting('spinner', 'block');
     const parentElement = document.getElementById('phone-details');
     const div = document.createElement('div');
     div.classList.add('row');
@@ -142,6 +138,7 @@ const showDetails = details => {
     `;
 
     emptyElement('phone-details');
+    displaySetting('spinner', 'none');
     parentElement.appendChild(div);
     displaySetting('phone-details', 'block');
 }
